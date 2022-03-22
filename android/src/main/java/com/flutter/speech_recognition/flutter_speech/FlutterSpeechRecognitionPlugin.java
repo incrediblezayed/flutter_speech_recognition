@@ -116,7 +116,8 @@ public class FlutterSpeechRecognitionPlugin implements FlutterPlugin, ActivityAw
   @Override
   public void onEndOfSpeech() {
     Log.d(LOG_TAG, "onEndOfSpeech");
-    speechChannel.invokeMethod("speech.onRecognitionComplete", transcription);
+    sendTranscription(true);
+    //speechChannel.invokeMethod("speech.onRecognitionComplete", transcription);
   }
 
   @Override
@@ -144,7 +145,7 @@ public class FlutterSpeechRecognitionPlugin implements FlutterPlugin, ActivityAw
 
   @Override
   public void onResults(Bundle results) {
-/*     Log.d(LOG_TAG, "onResults...");
+    Log.d(LOG_TAG, "onResults...");
     ArrayList<String> matches = results
             .getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
     if (matches != null) {
@@ -152,7 +153,7 @@ public class FlutterSpeechRecognitionPlugin implements FlutterPlugin, ActivityAw
       Log.d(LOG_TAG, "onResults -> " + transcription);
       sendTranscription(true);
     }
-    sendTranscription(false); */
+    sendTranscription(false);
   }
 
   private void sendTranscription(boolean isFinal) {
