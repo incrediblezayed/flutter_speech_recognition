@@ -128,13 +128,13 @@ public class FlutterSpeechRecognitionPlugin implements FlutterPlugin, ActivityAw
 
   @Override
   public void onPartialResults(Bundle partialResults) {
-    Log.d(LOG_TAG, "onPartialResults...");
+/*     Log.d(LOG_TAG, "onPartialResults...");
     ArrayList<String> matches = partialResults
             .getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
     if (matches != null) {
       transcription = matches.get(0);
     }
-    sendTranscription(false);
+    sendTranscription(false); */
   }
 
   @Override
@@ -144,7 +144,7 @@ public class FlutterSpeechRecognitionPlugin implements FlutterPlugin, ActivityAw
 
   @Override
   public void onResults(Bundle results) {
-    Log.d(LOG_TAG, "onResults...");
+/*     Log.d(LOG_TAG, "onResults...");
     ArrayList<String> matches = results
             .getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
     if (matches != null) {
@@ -152,7 +152,7 @@ public class FlutterSpeechRecognitionPlugin implements FlutterPlugin, ActivityAw
       Log.d(LOG_TAG, "onResults -> " + transcription);
       sendTranscription(true);
     }
-    sendTranscription(false);
+    sendTranscription(false); */
   }
 
   private void sendTranscription(boolean isFinal) {
