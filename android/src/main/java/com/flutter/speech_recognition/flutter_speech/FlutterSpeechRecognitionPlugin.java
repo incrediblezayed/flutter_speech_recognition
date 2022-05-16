@@ -34,14 +34,24 @@ public class FlutterSpeechRecognitionPlugin implements FlutterPlugin, ActivityAw
   private final Intent recognizerIntent;
   private ActivityPluginBinding activityPluginBinding;
   private Result permissionResult;
+  private AudioManager audioManager;
 
   public FlutterSpeechRecognitionPlugin() {
     recognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
     recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
             RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-    recognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
-    recognizerIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 3);
-  }
+    recognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, false);
+    recognizerIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1);
+
+    recognizerIntent?.putExtra(
+            RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS,
+            5000
+    )
+    recognizerIntent?.putExtra(
+            RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS,
+            3000
+    )
+    }
 
   @Override
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
@@ -64,6 +74,7 @@ public class FlutterSpeechRecognitionPlugin implements FlutterPlugin, ActivityAw
 
         break;
       case "speech.listen":
+        audioManager.adjustVolume(AudioManager.ADJUST_MUTE,AudioManager.FLAG_SHOW_UI);
         speech.startListening(recognizerIntent);
         result.success(true);
         break;
@@ -176,6 +187,7 @@ public class FlutterSpeechRecognitionPlugin implements FlutterPlugin, ActivityAw
 
   private void onActivityAttached(ActivityPluginBinding binding) {
     activityPluginBinding = binding;
+    audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
     binding.addRequestPermissionsResultListener(this);
     if (speech != null) {
       speech.cancel();
