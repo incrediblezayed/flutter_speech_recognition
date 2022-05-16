@@ -188,7 +188,7 @@ public class FlutterSpeechRecognitionPlugin implements FlutterPlugin, ActivityAw
 
   private void onActivityAttached(ActivityPluginBinding binding) {
     activityPluginBinding = binding;
-    audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+    audioManager = (AudioManager) binding.getActivity().getSystemService(Context.AUDIO_SERVICE);
     binding.addRequestPermissionsResultListener(this);
     if (speech != null) {
       speech.cancel();
