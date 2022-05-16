@@ -43,14 +43,14 @@ public class FlutterSpeechRecognitionPlugin implements FlutterPlugin, ActivityAw
     recognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, false);
     recognizerIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1);
 
-    recognizerIntent?.putExtra(
+    recognizerIntent.putExtra(
             RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS,
             5000
-    )
-    recognizerIntent?.putExtra(
+    );
+    recognizerIntent.putExtra(
             RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS,
             3000
-    )
+    );
     }
 
   @Override
@@ -74,7 +74,7 @@ public class FlutterSpeechRecognitionPlugin implements FlutterPlugin, ActivityAw
 
         break;
       case "speech.listen":
-        audioManager.adjustVolume(AudioManager.ADJUST_MUTE,AudioManager.FLAG_SHOW_UI);
+        //audioManager.adjustVolume(AudioManager.ADJUST_MUTE,AudioManager.FLAG_SHOW_UI);
         speech.startListening(recognizerIntent);
         result.success(true);
         break;
