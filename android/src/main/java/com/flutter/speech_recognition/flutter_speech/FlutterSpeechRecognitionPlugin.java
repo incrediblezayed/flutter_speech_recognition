@@ -80,11 +80,8 @@ public class FlutterSpeechRecognitionPlugin implements FlutterPlugin, ActivityAw
             case "speech.listen":
                 boolean muteAudio = (boolean) call.arguments;
                 Log.d(LOG_TAG, "muteAudio : " + muteAudio);
-                if (muteAudio == true) {
-                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,0, AudioManager.FLAG_SHOW_UI);
-                }else{
-                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC), AudioManager.FLAG_SHOW_UI);
-                }
+                var muteVal = muteAudio ? AudioManager.ADJUST_MUTE : AudioManager.ADJUST_UNMUTE;
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, muteVal, 0);
                 speech.startListening(recognizerIntent);
                 result.success(true);
                 break;
