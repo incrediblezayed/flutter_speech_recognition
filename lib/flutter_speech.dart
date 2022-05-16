@@ -34,7 +34,7 @@ class SpeechRecognition {
       _channel.invokeMethod("speech.activate", locale);
 
   /// start listening
-  Future listen() => _channel.invokeMethod("speech.listen");
+  Future listen([bool muted = false]) => _channel.invokeMethod("speech.listen", muted);
 
   /// cancel speech
   Future cancel() => _channel.invokeMethod("speech.cancel");
