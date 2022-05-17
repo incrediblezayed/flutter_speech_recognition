@@ -34,13 +34,16 @@ class SpeechRecognition {
       _channel.invokeMethod("speech.activate", locale);
 
   /// start listening
-  Future listen([bool muted = false]) => _channel.invokeMethod("speech.listen", muted);
+  Future listen([bool muted = false]) =>
+      _channel.invokeMethod("speech.listen", muted);
 
   /// cancel speech
   Future cancel() => _channel.invokeMethod("speech.cancel");
 
   /// stop listening
   Future stop() => _channel.invokeMethod("speech.stop");
+
+  Future destroy() => _channel.invokeMethod("speech.destroy");
 
   Future _platformCallHandler(MethodCall call) async {
     print("_platformCallHandler call ${call.method} ${call.arguments}");
