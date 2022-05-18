@@ -45,15 +45,15 @@ public class FlutterSpeechRecognitionPlugin implements FlutterPlugin, ActivityAw
         recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         recognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
-        recognizerIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 3);
-        recognizerIntent.putExtra(
-                RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS,
-                4000
-        );
-        recognizerIntent.putExtra(
-                RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS,
-                2000
-        );
+        recognizerIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 10);
+//        recognizerIntent.putExtra(
+//                RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS,
+//                4000
+//        );
+//        recognizerIntent.putExtra(
+//                RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS,
+//                2000
+//        );
     }
 
     @Override
