@@ -93,6 +93,7 @@ public class FlutterSpeechRecognitionPlugin implements FlutterPlugin, ActivityAw
                 result.success(false);
                 break;
             case "speech.stop":
+                
                 speech.stopListening();
                 result.success(true);
                 break;
@@ -185,6 +186,12 @@ public class FlutterSpeechRecognitionPlugin implements FlutterPlugin, ActivityAw
     }
 
     private void sendTranscription(boolean isFinal) {
+            int muteVal = AudioManager.ADJUST_UNMUTE;
+            audioManager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, muteVal, 0);
+            audioManager.adjustStreamVolume(AudioManager.STREAM_ALARM, muteVal, 0);
+            audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, muteVal, 0);
+            audioManager.adjustStreamVolume(AudioManager.STREAM_RING, muteVal, 0);
+            audioManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, muteVal, 0);
         speechChannel.invokeMethod(isFinal ? "speech.onRecognitionComplete" : "speech.onSpeech", transcription);
     }
 
