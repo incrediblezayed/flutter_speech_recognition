@@ -93,7 +93,7 @@ public class FlutterSpeechRecognitionPlugin implements FlutterPlugin, ActivityAw
                 result.success(false);
                 break;
             case "speech.stop":
-                
+
                 speech.stopListening();
                 result.success(true);
                 break;
@@ -115,6 +115,7 @@ public class FlutterSpeechRecognitionPlugin implements FlutterPlugin, ActivityAw
     @Override
     public void onReadyForSpeech(Bundle params) {
         Log.d(LOG_TAG, "onReadyForSpeech");
+        
         speechChannel.invokeMethod("speech.onSpeechAvailability", true);
     }
 
@@ -144,6 +145,12 @@ public class FlutterSpeechRecognitionPlugin implements FlutterPlugin, ActivityAw
 
     @Override
     public void onError(int error) {
+        int muteVal = AudioManager.ADJUST_UNMUTE;
+        audioManager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, muteVal, 0);
+        audioManager.adjustStreamVolume(AudioManager.STREAM_ALARM, muteVal, 0);
+        audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, muteVal, 0);
+        audioManager.adjustStreamVolume(AudioManager.STREAM_RING, muteVal, 0);
+        audioManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, muteVal, 0);
         Log.d(LOG_TAG, "onError : " + error);
 
         speechChannel.invokeMethod("speech.onSpeechAvailability", false);
@@ -171,13 +178,13 @@ public class FlutterSpeechRecognitionPlugin implements FlutterPlugin, ActivityAw
         Log.d(LOG_TAG, "onResults...");
         ArrayList<String> matches = results
                 .getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+        int muteVal = AudioManager.ADJUST_UNMUTE;
+        audioManager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, muteVal, 0);
+        audioManager.adjustStreamVolume(AudioManager.STREAM_ALARM, muteVal, 0);
+        audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, muteVal, 0);
+        audioManager.adjustStreamVolume(AudioManager.STREAM_RING, muteVal, 0);
+        audioManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, muteVal, 0);
         if (matches != null) {
-            int muteVal = AudioManager.ADJUST_UNMUTE;
-            audioManager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, muteVal, 0);
-            audioManager.adjustStreamVolume(AudioManager.STREAM_ALARM, muteVal, 0);
-            audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, muteVal, 0);
-            audioManager.adjustStreamVolume(AudioManager.STREAM_RING, muteVal, 0);
-            audioManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, muteVal, 0);
             transcription = matches.get(0);
             Log.d(LOG_TAG, "onResults -> " + transcription);
             sendTranscription(true);
@@ -186,12 +193,12 @@ public class FlutterSpeechRecognitionPlugin implements FlutterPlugin, ActivityAw
     }
 
     private void sendTranscription(boolean isFinal) {
-            int muteVal = AudioManager.ADJUST_UNMUTE;
-            audioManager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, muteVal, 0);
-            audioManager.adjustStreamVolume(AudioManager.STREAM_ALARM, muteVal, 0);
-            audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, muteVal, 0);
-            audioManager.adjustStreamVolume(AudioManager.STREAM_RING, muteVal, 0);
-            audioManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, muteVal, 0);
+        int muteVal = AudioManager.ADJUST_UNMUTE;
+        audioManager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, muteVal, 0);
+        audioManager.adjustStreamVolume(AudioManager.STREAM_ALARM, muteVal, 0);
+        audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, muteVal, 0);
+        audioManager.adjustStreamVolume(AudioManager.STREAM_RING, muteVal, 0);
+        audioManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, muteVal, 0);
         speechChannel.invokeMethod(isFinal ? "speech.onRecognitionComplete" : "speech.onSpeech", transcription);
     }
 
