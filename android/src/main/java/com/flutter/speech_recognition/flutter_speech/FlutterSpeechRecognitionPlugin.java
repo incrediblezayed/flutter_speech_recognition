@@ -115,7 +115,7 @@ public class FlutterSpeechRecognitionPlugin implements FlutterPlugin, ActivityAw
     @Override
     public void onReadyForSpeech(Bundle params) {
         Log.d(LOG_TAG, "onReadyForSpeech");
-        
+
         speechChannel.invokeMethod("speech.onSpeechAvailability", true);
     }
 
